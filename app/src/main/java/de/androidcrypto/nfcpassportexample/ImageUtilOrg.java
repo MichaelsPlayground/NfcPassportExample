@@ -23,7 +23,7 @@ import android.util.Base64;
 
 import org.jmrtd.lds.AbstractImageInfo;
 //import org.jnbis.WsqDecoder;
-import org.jnbis.api.Jnbis;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -37,10 +37,10 @@ import java.io.OutputStream;
 import jj2000.j2k.decoder.Decoder;
 import jj2000.j2k.util.ParameterList;
 
-public class ImageUtil {
-
+public class ImageUtilOrg {
+    // uses this dependency: implementation group: 'com.github.mhshams', name: 'jnbis', version: '1.1.0'
     // see: https://github.com/mhshams/jnbis
-    // uses implementation group: 'com.github.mhshams', name: 'jnbis', version: '2.1.2'
+    // there is a code part geryed out because of missing dependency
 
     public static Image getImage(Context context, AbstractImageInfo imageInfo) {
         Image image = new Image();
@@ -50,7 +50,7 @@ public class ImageUtil {
         try {
             dataInputStream.readFully(buffer, 0, imageLength);
             InputStream inputStream = new ByteArrayInputStream(buffer, 0, imageLength);
-            Bitmap bitmapImage = ImageUtil.decodeImage(context, imageInfo.getMimeType(), inputStream);
+            Bitmap bitmapImage = ImageUtilOrg.decodeImage(context, imageInfo.getMimeType(), inputStream);
             image.setBitmapImage(bitmapImage);
             String base64Image = Base64.encodeToString(buffer, Base64.DEFAULT);
             image.setBase64Image(base64Image);
@@ -139,11 +139,10 @@ public class ImageUtil {
                 }
             }
             return Bitmap.createBitmap(colors, width, height, Bitmap.Config.ARGB_8888);
-        } else if (mimeType.equalsIgnoreCase("image/x-wsq")) {
-            // new with implementation group: 'com.github.mhshams', name: 'jnbis', version: '2.1.2'
-            org.jnbis.api.model.Bitmap bitmap = Jnbis.wsq().decode(inputStream).asBitmap();
-            //WsqDecoder wsqDecoder = new WsqDecoder();
-            //org.jnbis.Bitmap bitmap = wsqDecoder.decode(inputStream);
+        } else if (mimeType.equalsIgnoreCase("image/x-wsq")) /*{
+
+            WsqDecoder wsqDecoder = new WsqDecoder();
+            org.jnbis.Bitmap bitmap = wsqDecoder.decode(inputStream);
             byte[] byteData = bitmap.getPixels();
             int[] intData = new int[byteData.length];
             for (int j = 0; j < byteData.length; j++) {
@@ -152,6 +151,10 @@ public class ImageUtil {
             return Bitmap.createBitmap(intData, 0, bitmap.getWidth(), bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         } else {
             return BitmapFactory.decodeStream(inputStream);
-        }
+        }*/
+        ;
+
+        return null;
     }
 }
+

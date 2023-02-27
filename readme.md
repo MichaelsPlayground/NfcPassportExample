@@ -17,7 +17,7 @@ You can save or load one dataset using **Encrypted Shared Preferences**.
 
 The code is partially taken from https://github.com/alimertozdemir/EPassportNFCReader with original dependencies
 
-This is a version with **updated dependencies**. Please do not update "jnbis" as it will break the program.
+This is a version with **updated dependencies**.
 
 updated dependencies:
 ```plaintext
@@ -25,7 +25,8 @@ updated dependencies:
     implementation 'net.sf.scuba:scuba-sc-android:0.0.23'
     implementation 'edu.ucar:jj2000:5.2'
     // Java Implementation of NIST Biometric Image Software (NBIS)
-    implementation group: 'com.github.mhshams', name: 'jnbis', version: '1.1.0' // do not update
+    // you need to change ImageUtil.java to get it running
+    implementation group: 'com.github.mhshams', name: 'jnbis', version: '2.1.2'
 ```
 
 original dependencies:
